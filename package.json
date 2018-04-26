@@ -1,7 +1,7 @@
 {
-  "name": "boilermaker",
+  "name": "checkit-server",
   "version": "1.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "description": "checkit-server",
   "engines": {
     "node": ">= 7.0.0"
   },
@@ -21,7 +21,6 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.15.3",
     "body-parser": "^1.16.1",
     "compression": "^1.7.1",
     "connect-session-sequelize": "^4.1.0",
@@ -34,13 +33,6 @@
     "pg": "^6.1.2",
     "pg-hstore": "^2.3.2",
     "prop-types": "^15.5.8",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-redux": "^5.0.2",
-    "react-router-dom": "^4.1.1",
-    "redux": "^3.6.0",
-    "redux-logger": "^2.8.1",
-    "redux-thunk": "^2.2.0",
     "sequelize": "^4.3.1",
     "socket.io": "^2.0.3"
   },
