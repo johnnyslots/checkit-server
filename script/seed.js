@@ -16,13 +16,11 @@ const {User, ListItem, Recommendation} = require('../server/db/models')
 const listItem = [
   {
     category: 'books',
-    title: 'The Catcher in the Rye',
-    recommendedBy: 'Jim Johnson'
+    title: 'The Catcher in the Rye'
   },
   {
     category: 'books',
-    title: 'To Kill a Mockingbird',
-    recommendedBy: 'Jane Smith'
+    title: 'To Kill a Mockingbird'
   },
   {
     category: 'books',
@@ -30,13 +28,11 @@ const listItem = [
   },
   {
     category: 'books',
-    title: 'In Search of Lost Time',
-    recommendedBy: 'Mike Jackson'
+    title: 'In Search of Lost Time'
   },
   {
     category: 'movies',
-    title: 'The Godfather',
-    recommendedBy: 'Mike Jackson'
+    title: 'The Godfather'
   },
   {
     category: 'movies',

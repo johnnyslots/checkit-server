@@ -10,9 +10,6 @@ const ListItem = db.define('listItem', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
-  },
-  recommendedBy: {
-    type: Sequelize.STRING
   }
 })
 
