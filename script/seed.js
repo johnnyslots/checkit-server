@@ -10,26 +10,57 @@
  * Now that you've got the main idea, check it out in practice below!
  */
 const db = require('../server/db')
-const {User} = require('../server/db/models')
-const Book = require('../server/db/models/book')
+const {User, ListItem, Recommendation} = require('../server/db/models')
+// const ListItem = require('../server/db/models/listItem')
 
-const books = [
+const listItem = [
   {
+    category: 'books',
     title: 'The Catcher in the Rye',
-    recommendedBy: 'Jim Johnson',
-    notes: 'This is a classic - must read'
+    recommendedBy: 'Jim Johnson'
   },
   {
+    category: 'books',
     title: 'To Kill a Mockingbird',
-    recommendedBy: 'Jane Smith',
-    notes: 'The movie is good but the book is better'
+    recommendedBy: 'Jane Smith'
   },
   {
+    category: 'books',
     title: 'War and Peace'
   },
   {
+    category: 'books',
     title: 'In Search of Lost Time',
     recommendedBy: 'Mike Jackson'
+  },
+  {
+    category: 'movies',
+    title: 'The Godfather',
+    recommendedBy: 'Mike Jackson'
+  },
+  {
+    category: 'movies',
+    title: 'Titanic'
+  }
+]
+
+const recommendation = [
+  {
+    notes: 'Classic book - must read',
+    itemId: 1,
+    fromId: 2,
+    toId: 1
+  },
+  {
+    notes: 'Absolute page-turner',
+    itemId: 2,
+    toId: 1
+  },
+  {
+    notes: 'Great movie!',
+    itemId: 5,
+    fromId: 2,
+    toId: 1
   }
 ]
 
@@ -42,7 +73,8 @@ async function seed () {
   const users = await Promise.all([
     await User.create({email: 'cody@email.com', password: '123'}),
     await User.create({email: 'murphy@email.com', password: '123'}),
-    await Book.bulkCreate(books)
+    await ListItem.bulkCreate(listItem),
+    await Recommendation.bulkCreate(recommendation)
   ])
   // Wowzers! We can even `await` on the right-hand side of the assignment operator
   // and store the result that the promise resolves to in a variable! This is nice!

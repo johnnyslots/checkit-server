@@ -1,5 +1,6 @@
 const User = require('./user')
-const Book = require('./book')
+const ListItem = require('./listItem')
+const Recommendation = require('./recommendation')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -7,6 +8,10 @@ const Book = require('./book')
  *
  *    BlogPost.belongsTo(User)
  */
+
+Recommendation.belongsTo(ListItem, {as: 'item'})
+Recommendation.belongsTo(User, {as: 'from'})
+Recommendation.belongsTo(User, {as: 'to'})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -16,5 +21,6 @@ const Book = require('./book')
  */
 module.exports = {
   User,
-  Book
+  ListItem,
+  Recommendation
 }
