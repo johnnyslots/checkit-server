@@ -11,6 +11,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const User = require('./db/models');
 module.exports = app
 
 /**
@@ -48,6 +49,12 @@ const createApp = () => {
     resave: false,
     saveUninitialized: false
   }))
+
+  app.use(function (req, res, next) {
+    res.cookieId = req.session.id || null;
+    next();
+  });
+
   app.use(passport.initialize())
   app.use(passport.session())
 

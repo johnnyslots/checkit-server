@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {ListItem} = require('../db/models')
+const {ListItem, Recommendation} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -9,6 +9,28 @@ router.get('/', (req, res, next) => {
   })
   .catch(next)
 })
+
+// router.post('/', (req, res, next) => {
+//   const category = req.body.category
+//   const title = req.body.title
+//   const notes = req.body.title
+//   ListItem.findOrCreate({
+//     where: {
+//       category,
+//       title
+//     }
+//   })
+//   .spread((item, create) => {
+//     return Recommendation.create({
+//       notes,
+//       itemId: item.id
+//     })
+//   })
+//   .then(() => {
+//     res.json(newRec)
+//   })
+//   .catch(next)
+// })
 
 router.get('/:category', (req, res, next) => {
   const category = req.params.category
@@ -22,3 +44,5 @@ router.get('/:category', (req, res, next) => {
   })
   .catch(next)
 })
+
+
