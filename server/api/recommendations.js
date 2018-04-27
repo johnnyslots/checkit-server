@@ -3,6 +3,7 @@ const {Recommendation, User, ListItem} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
+  // console.log('SESIONS!!', req.session,req.user)
   Recommendation.findAll({
       include: [
       {

@@ -51,6 +51,7 @@ const createApp = () => {
   }))
 
   app.use(function (req, res, next) {
+    console.log('session', req.session.id);
     res.cookieId = req.session.id || null;
     next();
   });
