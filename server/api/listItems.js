@@ -10,28 +10,6 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
-// router.post('/', (req, res, next) => {
-//   const category = req.body.category
-//   const title = req.body.title
-//   const notes = req.body.title
-//   ListItem.findOrCreate({
-//     where: {
-//       category,
-//       title
-//     }
-//   })
-//   .spread((item, create) => {
-//     return Recommendation.create({
-//       notes,
-//       itemId: item.id
-//     })
-//   })
-//   .then(() => {
-//     res.json(newRec)
-//   })
-//   .catch(next)
-// })
-
 router.get('/:category', (req, res, next) => {
   const category = req.params.category
   ListItem.findAll({

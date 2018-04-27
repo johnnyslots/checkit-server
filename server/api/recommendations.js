@@ -25,6 +25,7 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+//try defaultScope in model instead of eager loading here
 router.post('/', (req, res, next) => {
   const category = req.body.category
   const title = req.body.title
