@@ -60,6 +60,21 @@ const recommendation = [
   }
 ]
 
+const user = [
+  {
+    email: 'cody@email.com',
+    password: '123'
+  },
+  {
+    email: 'murphy@email.com',
+    password: '123'
+  },
+  {
+    email: 'yoni@email.com',
+    password: '123'
+  }
+]
+
 async function seed () {
   await db.sync({force: true})
   console.log('db synced!')
@@ -67,8 +82,7 @@ async function seed () {
   // executed until that promise resolves!
 
   const users = await Promise.all([
-    await User.create({email: 'cody@email.com', password: '123'}),
-    await User.create({email: 'murphy@email.com', password: '123'}),
+    await User.bulkCreate(user),
     await ListItem.bulkCreate(listItem),
     await Recommendation.bulkCreate(recommendation)
   ])
