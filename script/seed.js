@@ -53,6 +53,16 @@ const recommendation = [
     toId: 1
   },
   {
+    notes: 'great book',
+    itemId: 3,
+    toId: 1
+  },
+  {
+    notes: 'amazing!',
+    itemId: 4,
+    toId: 1
+  },
+  {
     notes: 'Great movie!',
     itemId: 5,
     fromId: 2,

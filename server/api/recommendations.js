@@ -67,6 +67,22 @@ router.post('/', (req, res, next) => {
   .catch(next)
 })
 
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id
+  Recommendation.findById(id)
+  .then(rec => {
+    ListItem.findById(rec.itemId)
+    .then(listItem => {
+      listItem.destroy()
+      rec.destroy()
+    })
+    .then((deletedRec) => {
+      res.status(201).send(deletedRec)
+    })
+    .catch(next)
+  })
+})
+
 router.get('/books', (req, res, next) => {
   Recommendation.findAll({
       include: [
