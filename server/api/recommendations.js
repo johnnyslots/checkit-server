@@ -28,9 +28,11 @@ router.get('/', (req, res, next) => {
 
 //try defaultScope in model instead of eager loading here
 router.post('/', (req, res, next) => {
-  const category = req.body.category
-  const title = req.body.title
-  const notes = req.body.notes
+  const category = req.body.postData.category
+  const title = req.body.postData.title
+  const notes = req.body.postData.notes
+  const fromId = req.body.postData.sender ? req.body.postData.sender.id : null
+  const toId = req.body.user.id
   ListItem.findOrCreate({
     where: {
       category,
@@ -40,7 +42,9 @@ router.post('/', (req, res, next) => {
   .spread((item, create) => {
     return Recommendation.create({
       notes,
-      itemId: item.id
+      itemId: item.id,
+      fromId,
+      toId
     })
   })
   .then(() => {

@@ -55,6 +55,7 @@ const recommendation = [
   {
     notes: 'great book',
     itemId: 3,
+    fromId: 3,
     toId: 1
   },
   {
@@ -72,15 +73,21 @@ const recommendation = [
 
 const user = [
   {
+    firstName: 'Cody',
+    lastName: 'Smith',
     email: 'cody@email.com',
     password: '123'
   },
   {
+    firstName: 'Murphy',
+    lastName: 'Johnson',
     email: 'murphy@email.com',
     password: '123'
   },
   {
-    email: 'yoni@email.com',
+    firstName: 'Mike',
+    lastName: 'Jackson',
+    email: 'mike@email.com',
     password: '123'
   }
 ]
