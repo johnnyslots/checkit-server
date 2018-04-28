@@ -12,3 +12,16 @@ router.get('/', (req, res, next) => {
     .then(users => res.json(users))
     .catch(next)
 })
+
+router.get('/:userEmail', (req, res, next) => {
+  const email = req.params.userEmail
+  User.findOne({
+    where: {
+      email
+    }
+  })
+  .then(user => {
+    res.json(user)
+  })
+  .catch(next)
+})
