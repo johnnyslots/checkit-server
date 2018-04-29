@@ -26,10 +26,12 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/pending', (req, res, next) => {
+router.get('/pending/:id', (req, res, next) => {
+  const id = req.params.id
   Recommendation.findAll({
       where: {
-        isPending: true
+        isPending: true,
+        toId: id
       },
       include: [
       {
@@ -58,8 +60,19 @@ router.post('/', (req, res, next) => {
   const title = req.body.postData.title
   const notes = req.body.postData.notes
   const fromId = req.body.postData.sender ? req.body.postData.sender.id : null
-  const toId = req.body.user.id
+  let toId = req.body.user ? req.body.user.id : null
+  const email = req.body.userEmail
   const isPending = req.body.postData.sender ? true : false
+  if(!toId) {
+    User.findOne({
+      where: {
+        email
+      }
+    })
+    .then(user => {
+      toId = user.id
+    })
+  }
   ListItem.findOrCreate({
     where: {
       category,
@@ -148,7 +161,7 @@ router.get('/books', (req, res, next) => {
   })
   .then(recs => {
     const books = recs.filter(rec => {
-      return rec.item.category === 'books';
+      return rec.item.category === 'books' && rec.isPending === false;
     })
     res.json(books);
   })
