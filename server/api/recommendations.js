@@ -26,6 +26,32 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/pending', (req, res, next) => {
+  Recommendation.findAll({
+      where: {
+        isPending: true
+      },
+      include: [
+      {
+        model: User,
+        as: 'from'
+      },
+      {
+        model: User,
+        as: 'to'
+      },
+      {
+        model: ListItem,
+        as: 'item'
+      }
+    ]
+  })
+  .then(recs => {
+    res.json(recs)
+  })
+  .catch(next)
+})
+
 //try defaultScope in model instead of eager loading here
 router.post('/', (req, res, next) => {
   const category = req.body.postData.category
@@ -33,6 +59,7 @@ router.post('/', (req, res, next) => {
   const notes = req.body.postData.notes
   const fromId = req.body.postData.sender ? req.body.postData.sender.id : null
   const toId = req.body.user.id
+  const isPending = req.body.postData.sender ? true : false
   ListItem.findOrCreate({
     where: {
       category,
@@ -44,7 +71,8 @@ router.post('/', (req, res, next) => {
       notes,
       itemId: item.id,
       fromId,
-      toId
+      toId,
+      isPending
     })
   })
   .then(() => {
@@ -67,6 +95,20 @@ router.post('/', (req, res, next) => {
     .then(recs => {
       res.json(recs)
     })
+  })
+  .catch(next)
+})
+
+router.put('/pending/:id', (req, res, next) => {
+  const id = req.params.id
+  Recommendation.findById(id)
+  .then(rec => {
+    rec.update({
+      isPending: false
+    })
+  })
+  .then(updatedRec => {
+    res.status(200).send(updatedRec)
   })
   .catch(next)
 })

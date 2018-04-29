@@ -43,6 +43,7 @@ const listItem = [
 const recommendation = [
   {
     notes: 'Classic book - must read',
+    isPending: true,
     itemId: 1,
     fromId: 2,
     toId: 1
@@ -54,6 +55,7 @@ const recommendation = [
   },
   {
     notes: 'great book',
+    isPending: true,
     itemId: 3,
     fromId: 3,
     toId: 1
