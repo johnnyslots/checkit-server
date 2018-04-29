@@ -10,6 +10,16 @@ const ListItem = db.define('listItem', {
   title: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  findOnGoogle: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      const title = this.getDataValue('title').split(' ').join('+');
+      const category = this.getDataValue('category');
+      return (
+        'https://www.google.com/search?q=' + category + '+' + title
+      );
+    }
   }
 })
 
