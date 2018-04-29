@@ -3,7 +3,6 @@ const {Recommendation, User, ListItem} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
-  // console.log('SESIONS!!', req.session,req.user)
   Recommendation.findAll({
       include: [
       {
@@ -80,6 +79,7 @@ router.post('/', (req, res, next) => {
     }
   })
   .spread((item, create) => {
+    console.log('TO!', toId)
     return Recommendation.create({
       notes,
       itemId: item.id,
@@ -90,6 +90,10 @@ router.post('/', (req, res, next) => {
   })
   .then(() => {
     Recommendation.findAll({
+        where: {
+          isPending: false,
+          toId
+        },
         include: [
         {
           model: User,
@@ -142,8 +146,13 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
-router.get('/books', (req, res, next) => {
+router.get('/books/:id', (req, res, next) => {
+  const id = req.params.id
   Recommendation.findAll({
+      where: {
+        isPending: false,
+        toId: id
+      },
       include: [
       {
         model: User,
@@ -161,7 +170,7 @@ router.get('/books', (req, res, next) => {
   })
   .then(recs => {
     const books = recs.filter(rec => {
-      return rec.item.category === 'books' && rec.isPending === false;
+      return rec.item.category === 'books';
     })
     res.json(books);
   })
