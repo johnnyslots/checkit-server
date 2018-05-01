@@ -79,7 +79,6 @@ router.post('/', (req, res, next) => {
     }
   })
   .spread((item, create) => {
-    console.log('TO!', toId)
     return Recommendation.create({
       notes,
       itemId: item.id,
