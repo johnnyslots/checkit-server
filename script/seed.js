@@ -78,19 +78,22 @@ const user = [
     firstName: 'Cody',
     lastName: 'Smith',
     email: 'cody@email.com',
-    password: '123'
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   },
   {
     firstName: 'Murphy',
     lastName: 'Johnson',
     email: 'murphy@email.com',
-    password: '123'
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   },
   {
     firstName: 'Mike',
     lastName: 'Jackson',
     email: 'mike@email.com',
-    password: '123'
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   }
 ]
 
