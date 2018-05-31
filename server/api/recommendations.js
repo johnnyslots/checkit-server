@@ -32,9 +32,7 @@ router.get('/pending/:id', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
-  const category = req.body.postData.category
-  const title = req.body.postData.title
-  const notes = req.body.postData.notes
+  const {category, title, notes} = req.body.postData
   const fromId = req.body.postData.sender ? req.body.postData.sender.id : null
   let toId = req.body.user ? req.body.user.id : null
   const email = req.body.userEmail
