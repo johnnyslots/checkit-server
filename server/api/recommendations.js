@@ -4,19 +4,8 @@ module.exports = router
 
 router.get('/', (req, res, next) => {
   Recommendation.findAll({
-      include: [
-      {
-        model: User,
-        as: 'from'
-      },
-      {
-        model: User,
-        as: 'to'
-      },
-      {
-        model: ListItem,
-        as: 'item'
-      }
+    include: [
+      {all: true}
     ]
   })
   .then(recs => {
@@ -28,23 +17,12 @@ router.get('/', (req, res, next) => {
 router.get('/pending/:id', (req, res, next) => {
   const id = req.params.id
   Recommendation.findAll({
-      where: {
-        isPending: true,
-        toId: id
-      },
-      include: [
-      {
-        model: User,
-        as: 'from'
-      },
-      {
-        model: User,
-        as: 'to'
-      },
-      {
-        model: ListItem,
-        as: 'item'
-      }
+    where: {
+      isPending: true,
+      toId: id
+    },
+    include: [
+      {all: true}
     ]
   })
   .then(recs => {
@@ -53,7 +31,6 @@ router.get('/pending/:id', (req, res, next) => {
   .catch(next)
 })
 
-//try defaultScope in model instead of eager loading here
 router.post('/', (req, res, next) => {
   const category = req.body.postData.category
   const title = req.body.postData.title
@@ -89,23 +66,12 @@ router.post('/', (req, res, next) => {
   })
   .then(() => {
     Recommendation.findAll({
-        where: {
-          isPending: false,
-          toId
-        },
-        include: [
-        {
-          model: User,
-          as: 'from'
-        },
-        {
-          model: User,
-          as: 'to'
-        },
-        {
-          model: ListItem,
-          as: 'item'
-        }
+      where: {
+        isPending: false,
+        toId
+      },
+      include: [
+        {all: true}
       ]
     })
     .then(recs => {
@@ -148,23 +114,12 @@ router.delete('/:id', (req, res, next) => {
 router.get('/books/:id', (req, res, next) => {
   const id = req.params.id
   Recommendation.findAll({
-      where: {
-        isPending: false,
-        toId: id
-      },
-      include: [
-      {
-        model: User,
-        as: 'from'
-      },
-      {
-        model: User,
-        as: 'to'
-      },
-      {
-        model: ListItem,
-        as: 'item'
-      }
+    where: {
+      isPending: false,
+      toId: id
+    },
+    include: [
+      {all: true}
     ]
   })
   .then(recs => {
