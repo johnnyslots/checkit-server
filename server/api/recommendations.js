@@ -109,22 +109,24 @@ router.delete('/:id', (req, res, next) => {
   })
 })
 
-router.get('/books/:id', (req, res, next) => {
-  const id = req.params.id
+router.get('/:category/users/:userId', (req, res, next) => {
+  const category = req.params.category
+  const userId = req.params.userId
   Recommendation.findAll({
     where: {
       isPending: false,
-      toId: id
+      toId: userId
     },
     include: [
       {all: true}
     ]
   })
   .then(recs => {
-    const books = recs.filter(rec => {
-      return rec.item.category === 'books';
+
+    const filteredByCategory = recs.filter(rec => {
+      return rec.item.category === category;
     })
-    res.json(books);
+    res.json(filteredByCategory);
   })
   .catch(next)
 })
