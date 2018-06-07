@@ -31,6 +31,10 @@ router.get('/pending/:id', (req, res, next) => {
   .catch(next)
 })
 
+router.post('/ownRec', (req, res, next) => {
+  console.log('REQ BOD!!!!', req.body)
+})
+
 router.post('/', (req, res, next) => {
   const {category, title, notes} = req.body.postData
   const fromId = req.body.postData.sender ? req.body.postData.sender.id : null
