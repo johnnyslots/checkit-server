@@ -32,7 +32,26 @@ router.get('/pending/:id', (req, res, next) => {
 })
 
 router.post('/ownRec', (req, res, next) => {
-  console.log('REQ BOD!!!!', req.body)
+  const { item, userId, category } = req.body;
+  const notes = item.notes;
+
+  ListItem.findOrCreate({
+    where: {
+      category,
+      title: item.title
+    }
+  })
+  .spread((item, created) => {
+    return Recommendation.create({
+      notes,
+      itemId: item.id,
+      toId: userId
+    })
+  })
+  .then(() => {
+    res.sendStatus(201)
+  })
+  .catch(next)
 })
 
 router.post('/', (req, res, next) => {

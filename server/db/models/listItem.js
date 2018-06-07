@@ -4,7 +4,7 @@ const db = require('../db')
 const ListItem = db.define('listItem', {
   category: {
     type: Sequelize.ENUM,
-    values: ['books', 'movies', 'tv shows'],
+    values: ['books', 'movies', 'podcasts', 'tv shows'],
     allowNull: false
   },
   title: {
