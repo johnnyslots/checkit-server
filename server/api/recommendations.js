@@ -14,6 +14,23 @@ router.get('/', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/pending/users/:userId', (req, res, next) => {
+  const userId = req.params.userId
+  Recommendation.findAll({
+    where: {
+      isPending: true,
+      toId: userId
+    },
+    include: [
+      {all: true}
+    ]
+  })
+  .then(pendingRecs => {
+    res.json(pendingRecs);
+  })
+  .catch(next)
+})
+
 router.get('/:category/users/:userId', (req, res, next) => {
   const category = req.params.category
   const userId = req.params.userId
@@ -29,28 +46,6 @@ router.get('/:category/users/:userId', (req, res, next) => {
   .then(recs => {
 
     const filteredByCategory = recs.filter(rec => {
-      return rec.item.category === category;
-    })
-    res.json(filteredByCategory);
-  })
-  .catch(next)
-})
-
-router.get('/:category/users/:userId/pending', (req, res, next) => {
-  const category = req.params.category
-  const userId = req.params.userId
-  Recommendation.findAll({
-    where: {
-      isPending: true,
-      toId: userId
-    },
-    include: [
-      {all: true}
-    ]
-  })
-  .then(pendingRecs => {
-
-    const filteredByCategory = pendingRecs.filter(rec => {
       return rec.item.category === category;
     })
     res.json(filteredByCategory);
