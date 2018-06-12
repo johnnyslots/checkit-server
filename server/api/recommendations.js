@@ -124,19 +124,20 @@ router.post('/ownRec', (req, res, next) => {
 //   .catch(next)
 // })
 
-// router.put('/pending/:id', (req, res, next) => {
-//   const id = req.params.id
-//   Recommendation.findById(id)
-//   .then(rec => {
-//     rec.update({
-//       isPending: false
-//     })
-//   })
-//   .then(updatedRec => {
-//     res.status(200).send(updatedRec)
-//   })
-//   .catch(next)
-// })
+router.put('/pending/:id', (req, res, next) => {
+  const id = req.params.id
+  Recommendation.findById(id)
+  .then(rec => {
+    return rec.update({
+      isPending: false
+    })
+  })
+  .then(updatedRec => {
+
+    res.status(200).send(updatedRec)
+  })
+  .catch(next)
+})
 
 // router.delete('/:id', (req, res, next) => {
 //   const id = req.params.id
