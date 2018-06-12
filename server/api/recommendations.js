@@ -76,53 +76,31 @@ router.post('/ownRec', (req, res, next) => {
   .catch(next)
 })
 
-// router.post('/', (req, res, next) => {
-//   const {category, title, notes} = req.body.postData
-//   const fromId = req.body.postData.sender ? req.body.postData.sender.id : null
-//   let toId = req.body.user ? req.body.user.id : null
-//   const email = req.body.userEmail
-//   const isPending = req.body.postData.sender ? true : false
-//   if(!toId) {
-//     User.findOne({
-//       where: {
-//         email
-//       }
-//     })
-//     .then(user => {
-//       toId = user.id
-//     })
-//   }
-//   ListItem.findOrCreate({
-//     where: {
-//       category,
-//       title
-//     }
-//   })
-//   .spread((item, create) => {
-//     return Recommendation.create({
-//       notes,
-//       itemId: item.id,
-//       fromId,
-//       toId,
-//       isPending
-//     })
-//   })
-//   .then(() => {
-//     Recommendation.findAll({
-//       where: {
-//         isPending: false,
-//         toId
-//       },
-//       include: [
-//         {all: true}
-//       ]
-//     })
-//     .then(recs => {
-//       res.json(recs)
-//     })
-//   })
-//   .catch(next)
-// })
+router.post('/', (req, res, next) => {
+  const { category, title, notes } = req.body.recInfo
+  const fromId = req.body.recInfo.senderId
+  const { toId } = req.body
+  ListItem.findOrCreate({
+    where: {
+      category,
+      title
+    }
+  })
+  .spread((item, created) => {
+    return Recommendation.create({
+      notes,
+      itemId: item.id,
+      isPending: true,
+      fromId,
+      toId
+    })
+  })
+  .then(() => {
+    res.sendStatus(201)
+  })
+  .catch(next)
+
+})
 
 router.put('/pending/:id', (req, res, next) => {
   const id = req.params.id
