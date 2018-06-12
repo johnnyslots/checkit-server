@@ -133,24 +133,23 @@ router.put('/pending/:id', (req, res, next) => {
     })
   })
   .then(updatedRec => {
-
     res.status(200).send(updatedRec)
   })
   .catch(next)
 })
 
-// router.delete('/:id', (req, res, next) => {
-//   const id = req.params.id
-//   Recommendation.findById(id)
-//   .then(rec => {
-//     ListItem.findById(rec.itemId)
-//     .then(listItem => {
-//       listItem.destroy()
-//       rec.destroy()
-//     })
-//     .then((deletedRec) => {
-//       res.status(201).send(deletedRec)
-//     })
-//     .catch(next)
-//   })
-// })
+router.delete('/:id', (req, res, next) => {
+  const id = req.params.id
+  Recommendation.findById(id)
+  .then(rec => {
+    ListItem.findById(rec.itemId)
+    .then(listItem => {
+      listItem.destroy()
+      rec.destroy()
+    })
+    .then((deletedRec) => {
+      res.status(201).send(deletedRec)
+    })
+    .catch(next)
+  })
+})
