@@ -5,6 +5,7 @@ module.exports = (io) => {
     console.log(`A socket connection to the server has been made: ${socket.id}`)
 
     socket.on('newRec', (data) => {
+      console.log('DATA!!!', data)
       socket.broadcast.emit('newRec', data)
     })
 
