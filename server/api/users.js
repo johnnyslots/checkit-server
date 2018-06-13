@@ -39,8 +39,8 @@ router.put('/push-token', (req, res, next) => {
       expoPushToken
     })
   })
-  .then(updatedUser => {
-    // console.log('updatedUser!!!!!', updatedUser.data)
+  .then(() => {
+    res.sendStatus(200)
   })
   .catch(next)
 })
