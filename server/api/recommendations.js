@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const {Recommendation, User, ListItem} = require('../db/models')
-const Expo = require('expo-server-sdk')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -79,32 +78,7 @@ router.post('/ownRec', (req, res, next) => {
   .catch(next)
 })
 
-let expo = new Expo();
-let messages = []
-messages.push({
-  to: 'ExponentPushToken[ruNca8Mv_4P2ExEUvtoe1N]',
-  sound: 'default',
-  title: 'TEST',
-  body: 'This is a test notification'
-})
-let chunks = expo.chunkPushNotifications(messages);
-
-
 router.post('/', (req, res, next) => {
-(async () => {
-  // Send the chunks to the Expo push notification service. There are
-  // different strategies you could use. A simple one is to send one chunk at a
-  // time, which nicely spreads the load out over time:
-  for (let chunk of chunks) {
-    console.log('CHUNK!!!', chunk)
-    try {
-      let receipts = await expo.sendPushNotificationsAsync(chunk);
-      console.log(receipts);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-})();
   const { category, title, notes } = req.body.recInfo
   const fromId = req.body.recInfo.senderId
   const { toId } = req.body
