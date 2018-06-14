@@ -80,7 +80,7 @@ router.post('/ownRec', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   const { category, title, notes } = req.body.recInfo
-  const fromId = req.body.recInfo.senderId
+  const fromId = req.body.recInfo.sender.id
   const { toId } = req.body
   ListItem.findOrCreate({
     where: {
