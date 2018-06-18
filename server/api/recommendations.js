@@ -81,7 +81,8 @@ router.post('/ownRec', (req, res, next) => {
 router.post('/', (req, res, next) => {
   const { category, title, notes } = req.body.recInfo
   const fromId = req.body.recInfo.sender.id
-  const { toId } = req.body
+  const { toId } = req.body.toId ? req.body : req.body.recInfo
+  const { fulfillingRequest } = req.body
   ListItem.findOrCreate({
     where: {
       category,
