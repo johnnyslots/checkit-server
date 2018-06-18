@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Request} = require('../db/models')
+const {Request, User} = require('../db/models')
 module.exports = router
 
 router.get('/users/:userId', (req, res, next) => {
@@ -8,7 +8,11 @@ router.get('/users/:userId', (req, res, next) => {
     where: {
       toId: userId,
       isFulfilled: false
-    }
+    },
+    include: [{
+      model: User,
+      as: 'from'
+    }]
   })
   .then(requests => {
     res.json(requests)
