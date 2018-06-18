@@ -1,5 +1,5 @@
 const db = require('../server/db')
-const {User, ListItem, Recommendation} = require('../server/db/models')
+const {User, ListItem, Recommendation, Request} = require('../server/db/models')
 
 const listItem = [
   {
@@ -61,6 +61,27 @@ const recommendation = [
   }
 ]
 
+const request = [
+  {
+    category: 'books',
+    message: 'looking for a new sci-fi book - can you suggest anything?',
+    fromId: 2,
+    toId: 3
+  },
+  {
+    category: 'books',
+    message: 'read any good autobiographies lately?',
+    fromId: 1,
+    toId: 3
+  },
+  {
+    category: 'movies',
+    message: 'trying to netflix and chill this saturday and need a good movie to watch - can you recommend something plz???',
+    fromId: 2,
+    toId: 1
+  }
+]
+
 const user = [
   {
     firstName: 'Cody',
@@ -92,7 +113,8 @@ async function seed () {
   const users = await Promise.all([
     await User.bulkCreate(user),
     await ListItem.bulkCreate(listItem),
-    await Recommendation.bulkCreate(recommendation)
+    await Recommendation.bulkCreate(recommendation),
+    await Request.bulkCreate(request)
   ])
 
   console.log(`seeded ${users.length} users`)
