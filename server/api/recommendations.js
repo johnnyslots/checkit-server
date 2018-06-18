@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Recommendation, User, ListItem} = require('../db/models')
+const {Recommendation, User, ListItem, Request} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -82,7 +82,7 @@ router.post('/', (req, res, next) => {
   const { category, title, notes } = req.body.recInfo
   const fromId = req.body.recInfo.sender.id
   const { toId } = req.body.toId ? req.body : req.body.recInfo
-  const { fulfillingRequest } = req.body
+  const { requestId } = req.body.recInfo
   ListItem.findOrCreate({
     where: {
       category,
@@ -98,7 +98,17 @@ router.post('/', (req, res, next) => {
       toId
     })
   })
-  .then(() => {
+  .then((rec) => {
+    if(requestId) {
+      Request.findById(requestId)
+      .then(request => {
+        return request.update({
+          isFulfilled: true,
+          itemId: rec.itemId
+        })
+      })
+      .catch(next)
+    }
     res.sendStatus(201)
   })
   .catch(next)

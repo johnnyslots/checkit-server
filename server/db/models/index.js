@@ -13,6 +13,7 @@ const Request = require('./request')
 Recommendation.belongsTo(ListItem, {as: 'item'})
 Recommendation.belongsTo(User, {as: 'from'})
 Recommendation.belongsTo(User, {as: 'to'})
+Request.belongsTo(ListItem, {as: 'item'})
 Request.belongsTo(User, {as: 'from'})
 Request.belongsTo(User, {as: 'to'})
 
