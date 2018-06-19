@@ -1,5 +1,5 @@
 const db = require('../server/db')
-const {User, ListItem, Recommendation, Request} = require('../server/db/models')
+const {User, ListItem, Recommendation, Request, UserRelationship} = require('../server/db/models')
 
 const listItem = [
   {
@@ -106,6 +106,24 @@ const user = [
   }
 ]
 
+const userRelationship = [
+  {
+    status: 'pending',
+    userId: 1,
+    friendId: 2
+  },
+  {
+    status: 'accepted',
+    userId: 1,
+    friendId: 3
+  },
+  {
+    status: 'rejected',
+    userId: 3,
+    friendId: 2
+  }
+]
+
 async function seed () {
   await db.sync({force: true})
   console.log('db synced!')
@@ -114,7 +132,8 @@ async function seed () {
     await User.bulkCreate(user),
     await ListItem.bulkCreate(listItem),
     await Recommendation.bulkCreate(recommendation),
-    await Request.bulkCreate(request)
+    await Request.bulkCreate(request),
+    await UserRelationship.bulkCreate(userRelationship)
   ])
 
   console.log(`seeded ${users.length} users`)

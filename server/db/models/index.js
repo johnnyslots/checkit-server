@@ -2,6 +2,7 @@ const User = require('./user')
 const ListItem = require('./listItem')
 const Recommendation = require('./recommendation')
 const Request = require('./request')
+const UserRelationship = require('./userRelationship')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -16,6 +17,7 @@ Recommendation.belongsTo(User, {as: 'to'})
 Request.belongsTo(ListItem, {as: 'item'})
 Request.belongsTo(User, {as: 'from'})
 Request.belongsTo(User, {as: 'to'})
+User.belongsToMany(User, {through: UserRelationship, as: 'friend' })
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -27,5 +29,6 @@ module.exports = {
   User,
   ListItem,
   Recommendation,
-  Request
+  Request,
+  UserRelationship
 }
