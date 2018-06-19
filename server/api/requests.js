@@ -20,3 +20,19 @@ router.get('/users/:userId', (req, res, next) => {
   .catch(next)
 })
 
+
+router.post('/', (req, res, next) => {
+  const { category, message } = req.body.requestInfo
+  const fromId = req.body.requestInfo.sender.id
+  const toId = req.body.toId
+  Request.create({
+    category,
+    message,
+    fromId,
+    toId
+  })
+  .then(() => {
+    res.sendStatus(201)
+  })
+  .catch(next)
+})
