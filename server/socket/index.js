@@ -8,8 +8,8 @@ module.exports = (io) => {
       socket.broadcast.emit('newRec', data)
     })
 
-    socket.on('requestRec', (data) => {
-      socket.broadcast.emit('requestRec', data)
+    socket.on('newRecRequest', (data) => {
+      socket.broadcast.emit('newRecRequest', data)
     })
 
     socket.on('disconnect', () => {
