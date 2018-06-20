@@ -19,3 +19,17 @@ router.get('/pending/users/:userId', (req, res, next) => {
   })
   .catch(next)
 })
+
+router.put('/pending/:requestId', (req, res, next) => {
+  const id = req.params.requestId
+  UserRelationship.findById(id)
+  .then(request => {
+    return request.update({
+      status: 'accepted'
+    })
+  })
+  .then(acceptedRequest => {
+    res.status(200).send(acceptedRequest)
+  })
+  .catch(next)
+})
