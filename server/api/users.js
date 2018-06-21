@@ -13,6 +13,21 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+router.get('/search/:input', (req, res, next) => {
+  const input = req.params.input.toLowerCase()
+  User.findAll({
+    where: {
+      email: {
+        $like: `%${input}%`
+      }
+    }
+  })
+  .then(users => {
+    res.json(users)
+  })
+  .catch(next)
+})
+
 router.get('/:userEmail', (req, res, next) => {
   const email = req.params.userEmail
   User.findOne({
