@@ -47,3 +47,20 @@ router.put('/pending/:requestId/dismiss', (req, res, next) => {
   })
   .catch(next)
 })
+
+router.post('/requests', (req, res, next) => {
+  const { currentUserId } = req.body
+  const friendId = req.body.userId
+  UserRelationship.findOrCreate({
+    where: {
+      userId: currentUserId,
+      friendId
+    }
+  })
+  .spread((item, created) => {
+    console.log('ITEM', item)
+    console.log('CREATED?', created)
+  })
+  .catch(next)
+
+})

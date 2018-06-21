@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, UserRelationship} = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -13,17 +13,23 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
-router.get('/search/:input', (req, res, next) => {
+router.get('/:currentUserId/search/:input', (req, res, next) => {
   const input = req.params.input.toLowerCase()
+  const { currentUserId } = req.params
   User.findAll({
     where: {
       email: {
         $like: `%${input}%`
+      },
+      id: {
+        $ne: currentUserId
       }
     }
   })
   .then(users => {
-    res.json(users)
+    if(users) {
+      res.json(users)
+    }
   })
   .catch(next)
 })
