@@ -8,11 +8,10 @@ router.get('/pending/users/:userId', (req, res, next) => {
     where: {
       friendId: userId,
       status: 'pending'
-      //need to include User info for Id in UserId rather than id in friendId column
     },
     include: [{
       model: User,
-      as: 'friend'
+      as: 'user'
     }]
   })
   .then(pendingFriends => {
