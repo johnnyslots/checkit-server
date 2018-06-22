@@ -6,8 +6,9 @@ router.get('/pending/users/:userId', (req, res, next) => {
   const { userId } = req.params
   UserRelationship.findAll({
     where: {
-      userId,
+      friendId: userId,
       status: 'pending'
+      //need to include User info for Id in UserId rather than id in friendId column
     },
     include: [{
       model: User,
@@ -58,8 +59,11 @@ router.post('/requests', (req, res, next) => {
     }
   })
   .spread((item, created) => {
-    console.log('ITEM', item)
-    console.log('CREATED?', created)
+    const friendStatus = {
+      friendId,
+      status: item.dataValues.status
+    }
+    res.json(friendStatus)
   })
   .catch(next)
 
