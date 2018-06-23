@@ -3,23 +3,36 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
-  firstName: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  lastName: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   fullName: {
     type: Sequelize.STRING,
-    allowNull: false
-    // get () {
-    //   return (
-    //     this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
-    //   );
-    // }
+    allowNull: false,
+    set(val) {
+      let name = val.split(' ')
+      for(let i = 0; i < name.length; i++) {
+        let firstLetter = name[i].slice(0,1).toUpperCase()
+        let restOfLetters = name[i].slice(1).toLowerCase()
+        name[i] = firstLetter + restOfLetters
+      }
+      this.setDataValue('fullName', name.join(' '));
+    }
   },
+  firstName: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return (
+        this.getDataValue('fullName').split(' ')[0]
+      );
+    }
+  },
+  lastName: {
+    type: Sequelize.VIRTUAL,
+    get () {
+      return (
+        this.getDataValue('fullName').split(' ').slice(1).join(' ')
+      );
+    }
+  },
+
   email: {
     type: Sequelize.STRING,
     unique: true,

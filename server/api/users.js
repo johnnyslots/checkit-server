@@ -15,13 +15,13 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:currentUserId/search/:input', (req, res, next) => {
-  const input = req.params.input.toLowerCase()
+  const input = req.params.input
   const { currentUserId } = req.params
   User.findAll({
     where: {
       $or: [
-        {email: {$like: `%${input}%`}},
-        {fullName: {$like: `%${input}%`}}
+        {email: {$iLike: `%${input}%`}},
+        {fullName: {$iLike: `%${input}%`}}
       ],
       id: {
         $ne: currentUserId

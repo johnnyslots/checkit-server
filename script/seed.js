@@ -124,8 +124,6 @@ const request = [
 
 const user = [
   {
-    firstName: 'Cody',
-    lastName: 'Smith',
     fullName: 'Cody Smith',
     email: 'cody@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
@@ -149,8 +147,8 @@ const user = [
   },
   {
     firstName: 'Yoni',
-    lastName: 'Slowtiner',
-    fullName: 'Yoni Slowtiner',
+    lastName: 'Slotwiner',
+    fullName: 'Yoni Slotwiner',
     email: 'yoni@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
