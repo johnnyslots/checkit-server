@@ -12,7 +12,10 @@ router.get('/users/:userId', (req, res, next) => {
     include: [{
       model: User,
       as: 'from'
-    }]
+    }],
+    order: [
+      ['createdAt', 'DESC']
+    ]
   })
   .then(requests => {
     res.json(requests)

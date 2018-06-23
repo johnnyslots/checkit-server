@@ -12,7 +12,10 @@ router.get('/pending/users/:userId', (req, res, next) => {
     include: [{
       model: User,
       as: 'user'
-    }]
+    }],
+    order: [
+      ['createdAt', 'DESC']
+    ]
   })
   .then(pendingFriends => {
     res.json(pendingFriends)

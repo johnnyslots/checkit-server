@@ -23,6 +23,9 @@ router.get('/pending/users/:userId', (req, res, next) => {
     },
     include: [
       {all: true}
+    ],
+    order: [
+      ['createdAt', 'DESC']
     ]
   })
   .then(pendingRecs => {
