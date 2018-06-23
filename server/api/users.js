@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {User, UserRelationship} = require('../db/models')
+
 module.exports = router
 
 router.get('/', (req, res, next) => {
@@ -18,9 +19,10 @@ router.get('/:currentUserId/search/:input', (req, res, next) => {
   const { currentUserId } = req.params
   User.findAll({
     where: {
-      email: {
-        $like: `%${input}%`
-      },
+      $or: [
+        {email: {$like: `%${input}%`}},
+        {fullName: {$like: `%${input}%`}}
+      ],
       id: {
         $ne: currentUserId
       }

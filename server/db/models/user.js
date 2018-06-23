@@ -12,12 +12,13 @@ const User = db.define('user', {
     allowNull: false
   },
   fullName: {
-    type: Sequelize.VIRTUAL,
-    get () {
-      return (
-        this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
-      );
-    }
+    type: Sequelize.STRING,
+    allowNull: false
+    // get () {
+    //   return (
+    //     this.getDataValue('firstName') + ' ' + this.getDataValue('lastName')
+    //   );
+    // }
   },
   email: {
     type: Sequelize.STRING,

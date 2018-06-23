@@ -68,5 +68,4 @@ router.post('/requests', (req, res, next) => {
     res.json(friendStatus)
   })
   .catch(next)
-
 })
