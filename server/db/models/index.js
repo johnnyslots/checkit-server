@@ -11,6 +11,7 @@ Request.belongsTo(ListItem, {as: 'item'})
 Request.belongsTo(User, {as: 'from'})
 Request.belongsTo(User, {as: 'to'})
 User.belongsToMany(User, {through: UserRelationship, as: 'friend' })
+User.hasMany(UserRelationship, {as: 'relationship'})
 UserRelationship.belongsTo(User, {as: 'friend'})
 UserRelationship.belongsTo(User, {as: 'user'})
 

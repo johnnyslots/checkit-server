@@ -23,6 +23,44 @@ router.get('/pending/users/:userId', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/:currentUserId/search/:input', (req, res, next) => {
+  const input = req.params.input
+  const { currentUserId } = req.params
+  User.findAll({
+    where: {
+      $or: [
+        {email: {$iLike: `%${input}%`}},
+        {fullName: {$iLike: `%${input}%`}}
+      ],
+      id: {
+        $ne: currentUserId
+      }
+    }
+  })
+  .then(users => {
+    let userIds = users.map(user => user.dataValues.id)
+    return UserRelationship.findAll({
+      where: {
+        $or: [
+          {userId: {$in: userIds }}
+        ]
+      },
+      include: [{
+        model: User,
+        as: 'user'
+      }]
+    })
+  })
+  .then(friends => {
+    //need an array of userIds...
+    //to find all relationships that have userId in either userId or friendId column AND status is accepted
+    console.log('FRIENDS?!?!?!', friends)
+    res.json(friends)
+
+  })
+  .catch(next)
+})
+
 router.put('/pending/:requestId/accept', (req, res, next) => {
   const id = req.params.requestId
   UserRelationship.findById(id)
