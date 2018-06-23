@@ -25,6 +25,22 @@ const listItem = [
   {
     category: 'movies',
     title: 'Titanic'
+  },
+  {
+    category: 'podcasts',
+    title: 'The Champs'
+  },
+  {
+    category: 'podcasts',
+    title: 'Javascript Jabber'
+  },
+  {
+    category: 'tv shows',
+    title: 'Breaking Bad'
+  },
+  {
+    category: 'tv shows',
+    title: 'Westworld'
   }
 ]
 
@@ -58,6 +74,30 @@ const recommendation = [
     itemId: 5,
     fromId: 2,
     toId: 1
+  },
+  {
+    notes: 'Some notes about this movie!',
+    itemId: 6,
+    fromId: 3,
+    toId: 4
+  },
+  {
+    notes: 'Some notes about this podcast!',
+    itemId: 7,
+    fromId: 4,
+    toId: 3
+  },
+  {
+    notes: 'Top 5 shows of all time',
+    itemId: 8,
+    fromId: 5,
+    toId: 3
+  },
+  {
+    notes: 'Will blow your mind. Please watch this so we can talk about it.',
+    itemId: 9,
+    fromId: 1,
+    toId: 5
   }
 ]
 
@@ -101,6 +141,20 @@ const user = [
     firstName: 'Mike',
     lastName: 'Jackson',
     email: 'mike@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    firstName: 'Yoni',
+    lastName: 'Slowtiner',
+    email: 'yoni@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    firstName: 'Shira',
+    lastName: 'Beery',
+    email: 'shira@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   }

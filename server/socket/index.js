@@ -12,6 +12,10 @@ module.exports = (io) => {
       socket.broadcast.emit('newRecRequest', data)
     })
 
+    socket.on('friendRequest', (data) => {
+      socket.broadcast.emit('friendRequest', data)
+    })
+
     socket.on('disconnect', () => {
       console.log(`Connection ${socket.id} has left the building`)
     })
