@@ -26,34 +26,18 @@ router.get('/pending/users/:userId', (req, res, next) => {
 router.get('/:currentUserId/search/:input', (req, res, next) => {
   const input = req.params.input
   const { currentUserId } = req.params
-  User.findAll({
+  UserRelationship.findAll({
     where: {
+      status: 'accepted',
       $or: [
-        {email: {$iLike: `%${input}%`}},
-        {fullName: {$iLike: `%${input}%`}}
-      ],
-      id: {
-        $ne: currentUserId
-      }
+        {userId: currentUserId},
+        {friendId: currentUserId}
+      ]
     }
   })
-  .then(users => {
-    let userIds = users.map(user => user.dataValues.id)
-    return UserRelationship.findAll({
-      where: {
-        $or: [
-          {userId: {$in: userIds }},
-          {friendId: {$in: userIds }}
-        ]
-      },
-      include: [{
-        model: User,
-        as: 'user'
-      }]
-    })
-  })
-  .then(friends => {
-    let acceptedFriendIds = friends.filter(friend => friend.dataValues.status === 'accepted').map(accepted => accepted.dataValues.userId === +currentUserId ? accepted.dataValues.friendId : accepted.dataValues.userId)
+  .then(acceptedFriends => {
+    let acceptedFriendIds = acceptedFriends.map(friend => friend.dataValues.userId === +currentUserId ? friend.dataValues.friendId : friend.dataValues.userId
+    )
     return User.findAll({
       where: {
         $or: [
@@ -66,8 +50,8 @@ router.get('/:currentUserId/search/:input', (req, res, next) => {
       }
     })
   })
-  .then(acceptedFriends => {
-    res.json(acceptedFriends)
+  .then(friendsInfo => {
+    res.json(friendsInfo)
   })
   .catch(next)
 })
