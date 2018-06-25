@@ -42,7 +42,8 @@ router.get('/:currentUserId/search/:input', (req, res, next) => {
     return UserRelationship.findAll({
       where: {
         $or: [
-          {userId: {$in: userIds }}
+          {userId: {$in: userIds }},
+          {friendId: {$in: userIds }}
         ]
       },
       include: [{
@@ -52,11 +53,21 @@ router.get('/:currentUserId/search/:input', (req, res, next) => {
     })
   })
   .then(friends => {
-    //need an array of userIds...
-    //to find all relationships that have userId in either userId or friendId column AND status is accepted
-    console.log('FRIENDS?!?!?!', friends)
-    res.json(friends)
-
+    let acceptedFriendIds = friends.filter(friend => friend.dataValues.status === 'accepted').map(accepted => accepted.dataValues.userId === +currentUserId ? accepted.dataValues.friendId : accepted.dataValues.userId)
+    return User.findAll({
+      where: {
+        $or: [
+          {email: {$iLike: `%${input}%`}},
+          {fullName: {$iLike: `%${input}%`}}
+        ],
+        id: {
+          $in: acceptedFriendIds
+        }
+      }
+    })
+  })
+  .then(acceptedFriends => {
+    res.json(acceptedFriends)
   })
   .catch(next)
 })
