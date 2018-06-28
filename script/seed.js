@@ -19,8 +19,24 @@ const listItem = [
     title: 'In Search of Lost Time'
   },
   {
+    category: 'books',
+    title: 'The Magicians'
+  },
+  {
+    category: 'books',
+    title: 'Harry Potter and the Deathly Hallows'
+  },
+  {
     category: 'movies',
     title: 'The Godfather'
+  },
+  {
+    category: 'movies',
+    title: 'The Departed'
+  },
+  {
+    category: 'movies',
+    title: 'The Dark Knight'
   },
   {
     category: 'movies',
@@ -28,7 +44,11 @@ const listItem = [
   },
   {
     category: 'podcasts',
-    title: 'The Champs'
+    title: 'This American Life'
+  },
+  {
+    category: 'podcasts',
+    title: 'How I built This'
   },
   {
     category: 'podcasts',
@@ -41,6 +61,14 @@ const listItem = [
   {
     category: 'tv shows',
     title: 'Westworld'
+  },
+  {
+    category: 'tv shows',
+    title: 'Last Week Tonight'
+  },
+  {
+    category: 'tv shows',
+    title: 'Top Chef'
   }
 ]
 
@@ -70,25 +98,25 @@ const recommendation = [
     toId: 1
   },
   {
-    notes: 'Great movie!',
+    notes: 'Great book!',
     itemId: 5,
-    fromId: 2,
+    fromId: 4,
     toId: 1
   },
   {
-    notes: 'Some notes about this movie!',
+    notes: 'Some notes about this book!',
     itemId: 6,
     fromId: 3,
     toId: 4
   },
   {
-    notes: 'Some notes about this podcast!',
+    notes: 'Some notes about this moive!',
     itemId: 7,
-    fromId: 4,
-    toId: 3
+    fromId: 4
   },
   {
-    notes: 'Top 5 shows of all time',
+    notes: 'Top 5 movies of all time',
+    isPending: true,
     itemId: 8,
     fromId: 5,
     toId: 3
@@ -98,6 +126,54 @@ const recommendation = [
     itemId: 9,
     fromId: 1,
     toId: 5
+  },
+  {
+    notes: 'How have you not seen this yet?',
+    isPending: true,
+    itemId: 10,
+    fromId: 1
+  },
+  {
+    notes: 'Interesting',
+    itemId: 11,
+    fromId: 4,
+    toId: 2
+  },
+  {
+    notes: 'Very informative.',
+    itemId: 12,
+    fromId: 1,
+    toId: 5
+  },
+  {
+    notes: 'Great for subway rides',
+    itemId: 13,
+    fromId: 1
+  },
+  {
+    notes: 'Unbelievable show. Please watch this so we can talk about it.',
+    isPending: true,
+    itemId: 14,
+    fromId: 5,
+    toId: 1
+  },
+  {
+    notes: 'You will love this show',
+    itemId: 15,
+    fromId: 5,
+    toId: 2
+  },
+  {
+    notes: 'One of my all-time favorites',
+    itemId: 16,
+    fromId: 5,
+    toId: 3
+  },
+  {
+    notes: 'Can\'t wait for next season!',
+    itemId: 17,
+    fromId: 4,
+    toId: 3
   }
 ]
 
@@ -119,6 +195,24 @@ const request = [
     message: 'trying to netflix and chill this saturday and need a good movie to watch - can you recommend something plz???',
     fromId: 2,
     toId: 1
+  },
+  {
+    category: 'podcasts',
+    message: 'Can you recommend something for long subway rides?',
+    fromId: 4,
+    toId: 1
+  },
+  {
+    category: 'tv shows',
+    message: 'Finally finished The Sopranos - what should I watch next?',
+    fromId: 5,
+    toId: 1
+  },
+  {
+    category: 'movies',
+    message: 'looking for a good comedy - have any recommendations?',
+    fromId: 2,
+    toId: 1
   }
 ]
 
@@ -130,34 +224,56 @@ const user = [
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   },
   {
-    firstName: 'Murphy',
-    lastName: 'Johnson',
     fullName: 'Murphy Johnson',
     email: 'murphy@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   },
   {
-    firstName: 'Mike',
-    lastName: 'Jackson',
     fullName: 'Mike Jackson',
     email: 'mike@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   },
   {
-    firstName: 'Yoni',
-    lastName: 'Slotwiner',
     fullName: 'Yoni Slotwiner',
     email: 'yoni@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   },
   {
-    firstName: 'Shira',
-    lastName: 'Beery',
     fullName: 'Shira Beery',
     email: 'shira@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    fullName: 'Tracie Tellier',
+    email: 'tracie@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    fullName: 'Josette Janson',
+    email: 'josette@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    fullName: 'Clementine Cowan',
+    email: 'clementine@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    fullName: 'Thad Timpson',
+    email: 'thad@email.com',
+    password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
+    salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
+  },
+  {
+    fullName: 'Luther Lamore',
+    email: 'luther@email.com',
     password: '5fb6e1eb2e40b3fa38d45dad666c0d109698f594c06af808a0ac83488c88c696',
     salt: 'ByOKr1/DYTmHMa/8VbRsYg=='
   }
@@ -176,8 +292,38 @@ const userRelationship = [
   },
   {
     status: 'rejected',
+    userId: 4,
+    friendId: 1
+  },
+  {
+    status: 'pending',
+    userId: 5,
+    friendId: 1
+  },
+  {
+    status: 'pending',
     userId: 3,
     friendId: 2
+  },
+  {
+    status: 'accepted',
+    userId: 4,
+    friendId: 2
+  },
+  {
+    status: 'accepted',
+    userId: 5,
+    friendId: 2
+  },
+  {
+    status: 'accepted',
+    userId: 3,
+    friendId: 4
+  },
+  {
+    status: 'accepted',
+    userId: 5,
+    friendId: 4
   }
 ]
 
