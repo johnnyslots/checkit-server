@@ -56,9 +56,6 @@ const User = db.define('user', {
   },
   googleId: {
     type: Sequelize.STRING
-  },
-  expoPushToken: {
-    type: Sequelize.STRING
   }
 })
 

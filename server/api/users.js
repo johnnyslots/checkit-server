@@ -48,22 +48,3 @@ router.get('/:userEmail', (req, res, next) => {
   })
   .catch(next)
 })
-
-router.put('/push-token', (req, res, next) => {
-  const email = req.body.user.email
-  const expoPushToken = req.body.token.value
-  User.findOne({
-    where: {
-      email
-    }
-  })
-  .then(user => {
-    return user.update({
-      expoPushToken
-    })
-  })
-  .then(() => {
-    res.sendStatus(200)
-  })
-  .catch(next)
-})
