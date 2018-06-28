@@ -23,6 +23,34 @@ router.get('/pending/users/:userId', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/:currentUserId', (req, res, next) => {
+  const { currentUserId } = req.params
+  UserRelationship.findAll({
+    where: {
+      status: 'accepted',
+      $or: [
+        {userId: currentUserId},
+        {friendId: currentUserId}
+      ]
+    }
+  })
+  .then(acceptedFriends => {
+    let acceptedFriendIds = acceptedFriends.map(friend => friend.dataValues.userId === +currentUserId ? friend.dataValues.friendId : friend.dataValues.userId
+    )
+    return User.findAll({
+      where: {
+        id: {
+          $in: acceptedFriendIds
+        }
+      }
+    })
+  })
+  .then(friendsInfo => {
+    res.json(friendsInfo)
+  })
+  .catch(next)
+})
+
 router.get('/:currentUserId/search/:input', (req, res, next) => {
   const input = req.params.input
   const { currentUserId } = req.params
