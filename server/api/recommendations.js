@@ -44,6 +44,9 @@ router.get('/:category/users/:userId', (req, res, next) => {
     },
     include: [
       {all: true}
+    ],
+    order: [
+      ['createdAt', 'DESC']
     ]
   })
   .then(recs => {
