@@ -9,7 +9,10 @@ const ListItem = db.define('listItem', {
   },
   title: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
   findOnGoogle: {
     type: Sequelize.VIRTUAL,
